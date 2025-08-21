@@ -1,0 +1,6 @@
+git int 
+git add . 
+git remote add "url"
+git commit -m "msg"
+git branch -M main
+git push origin -u main 
