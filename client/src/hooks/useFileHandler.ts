@@ -9,7 +9,6 @@ const useFileHandler = (initial: string) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // simple validation: max 5MB and image type
     if (!file.type.startsWith('image/')) {
       setError('Only image files are allowed');
       return;

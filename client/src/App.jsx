@@ -1,31 +1,33 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectRoute from "./components/auth/ProtectRoute";
 import AppLayout from "./components/layout/AppLayout";
+import { LayoutLoader } from "./components/layout/Loaders";
 
-// Direct imports (no lazy loading)
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Chat from "./pages/Chat";
-import Groups from "./pages/Groups";
-import NotFound from "./pages/NotFound";
+const Home = lazy(() => import("./pages/Home"));
+const Login = lazy(() => import("./pages/Login"));
+const Chat = lazy(() => import("./pages/Chat"));
+const Groups = lazy(() => import("./pages/Groups"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 let user = true;
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<ProtectRoute user={user} />}>
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="chat/:chatId" element={<Chat />} />
-            <Route path="groups" element={<Groups />} />
+      <Suspense fallback={<LayoutLoader />}>
+        <Routes>
+          <Route element={<ProtectRoute user={user} />}>
+            <Route element={<AppLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="chat/:chatId" element={<Chat />} />
+              <Route path="groups" element={<Groups />} />
+            </Route>
           </Route>
-        </Route>
-        <Route path="login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

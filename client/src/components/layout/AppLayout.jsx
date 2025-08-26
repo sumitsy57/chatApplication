@@ -1,65 +1,62 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { use } from "react";
+import { Outlet, useParams } from "react-router-dom";
 import Header from "./Header";
 import Title from "../shared/Title";
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
+import ChatList from "./ChatList";
+import { sampleChats } from "../../constants/sampleData";
 
 export default function AppLayout() {
+    const headerHeight = "4rem";    
+
+    const params = useParams(); 
+    const chatId = params.chatId;
+
+    const handleDeleteChat = (e, _id, groupChat) => {
+        e.preventDefault();
+        console.log("Delete chat", _id, groupChat);
+    }
+        
+
     return (
-        <Grid container direction="column" height="100vh">
-            {/* Top Row: Title + Header */}
-            <Grid item>
+        <Box height="100vh" display="flex" flexDirection="column">
+
+            <Box>
                 <Title />
                 <Header />
-            </Grid>
+            </Box>
 
-            {/* Bottom Row: 3 compartments */}
-            <Grid item container xs flexGrow={1} height="100%">
-                {/* Left Section */}
-                <Grid
-                    item
-                    sm={4}
-                    md={3}
-                    sx={{
-                        display: { xs: "none", sm: "block" },
-                        bgcolor: "lightgray",
-                        height: "100%",   // <-- important
-                    }}
+            <Box display="flex" height={`calc(100vh - ${headerHeight})`}>
+                <Box
+                    flex={{ sm: "0 0 30%", md: "0 0 25%" }}
+                    display={{ xs: "none", sm: "block" }}
+                    height="100%"
                 >
-                    First
-                </Grid>
+                    <ChatList
+                        chats={sampleChats}
+                        chatId={chatId}
+                        handleDeleteChat={handleDeleteChat}
+                    />
+                </Box>
 
-                {/* Middle Section */}
-                <Grid
-                    item
-                    xs={12}
-                    sm={8}
-                    md={5}
-                    lg={6}
-                    sx={{
-                        bgcolor: "white",
-                        height: "100%",   // <-- important
-                    }}
+                <Box
+                    flex={1}
+                    display={{ xs: "block", md: "flex" }}
                 >
+
                     <Outlet />
-                </Grid>
+                </Box>
 
-                {/* Right Section */}
-                <Grid
-                    item
-                    md={4}
-                    lg={3}
-                    sx={{
-                        display: { xs: "none", md: "block" },
-                        bgcolor: "rgba(0, 0, 0, 0.85)",
-                        color: "white",
-                        p: 2,
-                        height: "100%",   // <-- important
-                    }}
+                <Box
+                    flex={{ md: "0 0 30%", lg: "0 0 25%" }}
+                    display={{ xs: "none", md: "block" }}
+                    bgcolor="rgba(0,0,0,0.85)"
+                    color="white"
+                    height="100%"
                 >
                     Third
-                </Grid>
-            </Grid>
-        </Grid>
+                </Box>
+            </Box>
+        </Box>
     );
 }
