@@ -18,12 +18,16 @@ export default function App() {
       <Suspense fallback={<LayoutLoader />}>
         <Routes>
           <Route element={<ProtectRoute user={user} />}>
+            {/* Routes with layout */}
             <Route element={<AppLayout />}>
               <Route path="/" element={<Home />} />
               <Route path="chat/:chatId" element={<Chat />} />
-              <Route path="groups" element={<Groups />} />
             </Route>
+
+            {/* Groups page as standalone */}
+            <Route path="groups" element={<Groups />} />
           </Route>
+
           <Route path="login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

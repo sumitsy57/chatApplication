@@ -3,8 +3,9 @@ import { Outlet, useParams } from "react-router-dom";
 import Header from "./Header";
 import Title from "../shared/Title";
 import { Box } from "@mui/material";
-import ChatList from "./ChatList";
+import ChatList from "../specific/ChatList";
 import { sampleChats } from "../../constants/sampleData";
+import Profile from "../specific/Profile";
 
 export default function AppLayout() {
     const headerHeight = "4rem";    
@@ -12,10 +13,10 @@ export default function AppLayout() {
     const params = useParams(); 
     const chatId = params.chatId;
 
-    const handleDeleteChat = (e, _id, groupChat) => {
-        e.preventDefault();
+    const handleDeleteChat = (_id, groupChat) => {
         console.log("Delete chat", _id, groupChat);
-    }
+    };
+
         
 
     return (
@@ -54,7 +55,7 @@ export default function AppLayout() {
                     color="white"
                     height="100%"
                 >
-                    Third
+                    <Profile/>
                 </Box>
             </Box>
         </Box>
