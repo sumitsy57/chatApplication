@@ -42,7 +42,10 @@ export default function AppLayout() {
 
                 <Box
                     flex={1}
-                    display={{ xs: "block", md: "flex" }}
+                    display={{
+                        xs: "block",
+                        // md: "flex"
+                    }}
                 >
 
                     <Outlet />

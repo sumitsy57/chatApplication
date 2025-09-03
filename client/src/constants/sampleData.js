@@ -49,3 +49,36 @@ export const sampleNotification = [
     },
     
 ];
+
+export const sampleMessages = [
+    {
+        attachments: [
+           
+        ],
+        content: "Hello, how are you?",
+        _id: "rergrfsfgffg",
+        sender: {
+            _id: "user._id",
+            name: "sumit",
+        },
+        chat: "chatId",
+        createdAt: "2025-09-03T01:00:00Z",
+    },
+
+    {
+        attachments: [
+            {
+                public_id: "sfsa",
+                url:"https://www.w3schools.com/howto/img_avatar.png",
+            },
+        ],
+        content: "",
+        _id: "rergrfsfgffgsss",
+        sender: {
+            _id: "erfff",
+            name: "Riya",
+        },
+        chat: "chatId",
+        createdAt: "2025-09-03T01:00:00Z",
+    },
+];
